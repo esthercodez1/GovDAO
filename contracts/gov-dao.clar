@@ -82,3 +82,27 @@
     false
   )
 )
+
+(define-private (is-valid-proposal-id (proposal-id uint))
+  (match (map-get? proposals proposal-id)
+    proposal true
+    false
+  )
+)
+
+(define-private (is-valid-collaboration-id (collaboration-id uint))
+  (match (map-get? collaborations collaboration-id)
+    collaboration true
+    false
+  )
+)
+
+(define-private (calculate-voting-power (user principal))
+  (let (
+    (member-data (unwrap! (map-get? members user) u0))
+    (reputation (get reputation member-data))
+    (stake (get stake member-data))
+  )
+    (+ (* reputation u10) stake)
+  )
+)
