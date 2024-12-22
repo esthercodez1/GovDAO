@@ -15,7 +15,7 @@
 ;; - Role-based access control for administrative functions
 ;; - Event logging for transparency and auditability
 
-;; Constants
+;; Constants;; Constants
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant ERR-NOT-AUTHORIZED (err u100))
 (define-constant ERR-ALREADY-MEMBER (err u101))
@@ -399,4 +399,11 @@
 
 (define-read-only (get-total-proposals)
   (ok (var-get total-proposals))
+)
+
+;; Initialize contract
+(begin
+  (var-set total-members u0)
+  (var-set total-proposals u0)
+  (var-set treasury-balance u0)
 )
