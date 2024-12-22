@@ -106,3 +106,17 @@
     (+ (* reputation u10) stake)
   )
 )
+
+(define-private (update-member-reputation (user principal) (change int))
+  (match (map-get? members user)
+    member-data 
+    (let (
+      (new-reputation (to-uint (+ (to-int (get reputation member-data)) change)))
+      (updated-data (merge member-data {reputation: new-reputation, last-interaction: block-height}))
+    )
+      (map-set members user updated-data)
+      (ok new-reputation)
+    )
+    ERR-NOT-MEMBER
+  )
+)
